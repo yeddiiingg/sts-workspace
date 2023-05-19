@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+
+</head>
+<style>
+	body{
+	background:pink;
+	
+	}
+	.container{
+	width:300px;
+	padding :16px;
+	margin: 0 auto;
+	background-color : white;
+	border-radius:8px;
+	}
+	
+	#btn{
+	background-color: pink;
+	color:white;
+	border:none;
+	width:100%
+	}
+	
+	.input{
+	width:250px;
+	border-radius:8px;
+	}
+	
+</style>
+<body>
+	<!-- action : 이름이 logins라는 서블릿으로 form내용을 get방식으로 전달한다 -->
+	<form name ="frmLogin" class="container">
+		<label class="input" for="name">아이디 : </label><br/>
+		<!-- 서블릿에서 name과 입력된 값을 전달 받게 된다. -->
+		<input type="text" id="name" name="user_id"><br>
+		
+		<label class="input" for="name2">패스워드 : </label><br/>
+		<input type="password" id="name2" name="user_pw"><br>
+		
+		<input type="button" onclick="servlet_req()"  value="로그인" id="btn"/>
+</form>
+
+</body>
+<script type="text/javascript">
+	function servlet_req() {
+		var frm = document.frmLogin;
+		var u_id = frm.user_id.value;
+		var u_pw = frm.user_pw.value;
+		if ((u_id.length==0 || u_id == "") || (u_pw.length==0 || u_pw == "")){
+			alert("아이디와 비밀번호를 모두 입력해 주세요.")
+		}else if(u_id == "admin" && u_pw == "admin"){
+            alert("관리자 ㅎㅇ");
+            frm.action = "frmlogins3";
+            frm.method = "get";
+            frm.submit();
+        }
+		else {
+			frm.action = "frmlogins3";
+			frm.method = "get";
+			frm.submit(); //폼을 넘겨주겠다.
+		}
+	}
+</script>
+</html>
