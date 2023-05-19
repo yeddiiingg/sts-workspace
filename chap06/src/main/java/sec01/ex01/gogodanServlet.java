@@ -44,7 +44,7 @@ public class gogodanServlet extends HttpServlet {
 				+ "background-color : pink;"
 				+ "}"
 				+ "tbody tr:nth-child(2n+1) {"
-				+ "background-color : hotpink;"
+				+ "background-color : white;"
 				+ "}"
 				+"</style>";
 		
@@ -67,10 +67,9 @@ public class gogodanServlet extends HttpServlet {
 		}
 		output.print("</table>");
 		data += "</body>";
-		
-
-		
 		data += "</html>";
+		
+		output.print(data);
 		
 		
 

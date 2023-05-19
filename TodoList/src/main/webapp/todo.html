@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<style>
+	
+	body{
+	background-color : #CEE3F6;
+	}
+	
+	#btn{
+	background-color: pink;
+	color:white;
+	border:none;
+	}
+	#input1{
+	border-color: pink;
+	}
+	
+	hr{
+	border-color: pink;
+	}
+	#Ptodo{
+	color:pink;
+	font-weight: bold;
+	}
+	
+	ul {
+    list-style-type: none;
+    padding: 0;
+}
+	
+	
+</style>
+<body>
+	<form action="todo" method = "get" name ="todo" class="container">
+		<p id = "Ptodo">My ToDo List</p>
+		<hr/>
+		<input type="text" name="user_content" id="input1">
+		<input type="button" value="추가"id="btn" onclick="add()"/>
+		<hr/>
+		<ul id="list"></ul>
+	</form>
+
+</body>
+<script type="text/javascript">
+	function add() {
+	  // 입력된 값 가져옴
+	  	var inputValue = document.getElementById("input1").value;
+
+	  // 입력된 값을 가진 새로운 리스트 아이템을 생성
+	  	var listItem = document.createElement("li");
+	  	listItem.textContent = inputValue;
+
+	  // 리스트에 새로운 아이템을 추가
+	  	var list = document.getElementById("list");
+	  	list.appendChild(listItem);
+
+	  	input.value = "";
+	}
+</script>
+</html>
