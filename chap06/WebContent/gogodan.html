@@ -4,12 +4,29 @@
 <meta charset="EUC-KR">
 <title>Insert title here</title>
 </head>
+<style>
+	.container{
+	width:300px;
+	padding :16px;
+	margin: 0 auto;
+	background-color : #CEE3F6;
+	border-radius:8px;
+	}
+	
+	#btn{
+	background-color: pink;
+	color:white;
+	border:none;
+	}
+	
+</style>
+
 <body>
-<form action="gogodan" method = "get" name ="gogodan1">
+<form action="gogodan" method = "get" name ="gogodan1" class="container">
 		<p>출력할 구구단의 수를 지정해 주세요.</p>
 		<label class="input" for="num">출력할 구구단 : </label>
-		<input type="text" name="user_dan"><br>
-		<button type="submit">전송</button>
+		<input type="text" name="user_dan" id="input"><br>
+		<button type="submit" id="btn">전송</button>
 		<!-- <input type="submit"  value="전송"/>  -->
 </form>
 </body>

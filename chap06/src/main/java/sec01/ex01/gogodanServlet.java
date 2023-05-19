@@ -32,19 +32,31 @@ public class gogodanServlet extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");  //1
 		// 요청에대한 응답에 써내려갈 내용을 담는 객체 생성
 		PrintWriter output = response.getWriter(); //2
-		String user_dan = request.getParameter("user_dan");
-		int num = Integer.parseInt(user_dan);
+		
+//		String user_dan = request.getParameter("user_dan");
+//		int num = Integer.parseInt(user_dan);
+		
+		int num = Integer.parseInt(request.getParameter("user_dan"));
 		
 		String data = "<html>";
+		data += "<style>"
+				+ "tbody tr:nth-child(2n) {"
+				+ "background-color : pink;"
+				+ "}"
+				+ "tbody tr:nth-child(2n+1) {"
+				+ "background-color : hotpink;"
+				+ "}"
+				+"</style>";
+		
 		data += "<body>";
 		output.print("<table border=1 width=800 align=center>");
 		output.print("<tr align=center>");
-		output.print("<td colspan=2>" +num + "단 출력</td>");
+		output.print("<td colspan=2 >" +num + "단 출력</td>");
 		output.print("</tr>");
 		
 		for(int i=1; i<10; i++) {
-			output.print("<tr align=center>");
-			output.print("<td width=400>");
+			output.print("<tr align=center background-color=pink>");
+			output.print("<td width=400 background-color=pink>");
 			output.print(num +"*"+i);
 			output.print("</td>");
 			output.print("<td width=400>");
@@ -55,6 +67,9 @@ public class gogodanServlet extends HttpServlet {
 		}
 		output.print("</table>");
 		data += "</body>";
+		
+
+		
 		data += "</html>";
 		
 		
