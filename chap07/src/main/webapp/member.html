@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<meta charset="EUC-KR">
+<head>
+    <title>회원 가입창</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            color: #ff69b4;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        td {
+            padding: 10px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="button"],
+        input[type="reset"] {
+            padding: 10px 20px;
+            margin-right: 10px;
+            background-color: #ff69b4;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="button"]:hover,
+        input[type="reset"]:hover {
+            background-color: #ff1493;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+    </style>
+    <script type="text/javascript">
+    
+	function fn_sendMember() {
+		var Member = document.Member;
+		
+		var custid = Member.custid.value;
+		var name = Member.name.value;
+		var identy = Member.identy.value;
+		var address = Member.address.value;
+		var phone = Member.phone.value;
+		
+		if (custid.length == 0 || custid == "") {
+			alert("아이디는 필수입니다.");
+		} else if (name.length == 0 || name == "") {
+			alert("이름은 필수입니다.");
+		} else if (identy.length == 0 || identy == "") {
+			alert("주민번호는 필수입니다.");
+		} else if (address.length == 0 || address == "") {
+			alert("주소는 필수입니다.");
+		}else if (phone.length == 0 || phone == "") {
+			alert("핸드폰번호는 필수입니다.");
+		} else {
+			Member.method = "post";
+			Member.action = "madang";
+			Member.submit();
+		}
+	}
+</script>
+</head>
+<body>
+    <div class="container">
+        <h1>회원 가입</h1>
+        <form name="Member">
+            <table>
+                <tr>
+                    <td>회원번호</td>
+                    <td><input type="text" name="custid"></td>
+                </tr> 
+                
+                <tr>
+                    <td>이름</td>
+                    <td><input type="text" name="name"></td>
+                </tr>
+                <tr>
+                    <td>주민번호</td>
+                    <td><input type="text" name="identy"></td>
+                </tr>
+                <tr>
+                    <td>주소</td>
+                    <td><input type="text" name="address"></td>
+                </tr>
+                <tr>
+                    <td>핸드폰</td>
+                    <td><input type="text" name="phone"></td>
+                </tr>
+            </table>
+            <div class="button-container">
+                <input type="button" value="가입하기" onclick="fn_sendMember()">
+                <input type="reset" value="다시입력">
+            </div>
+            <input type="hidden" name="command" value="addMember" />
+        </form>
+    </div>
+</body>
+</html>
