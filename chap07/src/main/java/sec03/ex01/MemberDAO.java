@@ -102,5 +102,19 @@ public class MemberDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	public void delMember(int id) {
+		try {
+			con = dataFactory.getConnection();
+			String query = "delete from customer where custid =?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, id);
+			pstmt.executeUpdate();
+			pstmt.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }

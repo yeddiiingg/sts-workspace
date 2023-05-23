@@ -1,5 +1,6 @@
 package sec03.ex01;
 
+import java.awt.image.DataBufferDouble;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -35,8 +36,8 @@ public class MemberServlet extends HttpServlet {
 	}
 	
 	private void doHandle(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("utf-8");
-		resp.setContentType("text/html;charset=utf-8");
+		req.setCharacterEncoding("euc-kr");
+		resp.setContentType("text/html; charset=euc-kr");
 		PrintWriter out = resp.getWriter();
 		MemberDAO dao = new MemberDAO();
 		List<MemberVO> list = dao.listmembers();
@@ -57,10 +58,14 @@ public class MemberServlet extends HttpServlet {
 			vo.setAddress(_address);
 			vo.setPhone(_phone);
 			dao.addMember(vo);
+		}else if(command != null && command.equals("delMember")) {
+			int _custid = Integer.parseInt(req.getParameter("custid"));	
+			
+			dao.delMember(_custid);
 		}
 		
 		out.print("<html><body>");
-		out.print("<table border = 1 ><tr>");
+		out.print("<table border = 1 ><tr align='center' bgcolor='#ff69b4'> ");
 		out.print("<td>고객번호</td><td>이름</td><td>주민번호</td><td>주소</td><td>핸드폰</td>");
 		
 		for(int i = 0; i<list.size();i++) {
@@ -71,7 +76,8 @@ public class MemberServlet extends HttpServlet {
 			String address = memberVO.getAddress();
 			String phone = memberVO.getPhone();
 		
-			out.print("<tr><td>"+custid+"</td><td>"+name+"</td><td>"+identy+"</td><td>"+address+"</td><td>"+phone+"</td>");
+			out.print("<tr><td>"+custid+"</td><td>"+name+"</td><td>"+identy+"</td><td>"+address+"</td><td>"+phone+
+					"</td><td>"+"<a href='/chap07/madang?command=delMember&custid="+custid+"'>삭제</a></td></tr>");
 			
 		}
 		out.print("</table>");
