@@ -1,4 +1,4 @@
-package sec01.ex01;
+package sec01.ex02;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/first")
-public class FirstServlet extends HttpServlet {
+@WebServlet({ "/second2" })
+public class SecondServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
@@ -18,7 +18,10 @@ public class FirstServlet extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html; charset=euc-kr");
 		PrintWriter out = response.getWriter();
-		response.sendRedirect("second");
+		out.println("<html><body>");
+		out.println("Refresh를 이용한 리다이렉트 실습");
+		out.println("</body></html>");
 	}
+
 
 }

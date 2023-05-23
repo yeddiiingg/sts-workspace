@@ -1,4 +1,4 @@
-package sec01.ex01;
+package sec01.ex02;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/first")
+@WebServlet("/first2")
 public class FirstServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -18,7 +18,9 @@ public class FirstServlet extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html; charset=euc-kr");
 		PrintWriter out = response.getWriter();
-		response.sendRedirect("second");
+		response.addHeader("Refresh","1; url=second"); //웹 브라우저에 1초 후 서블릿 second로 이동
+
+		
 	}
 
 }
