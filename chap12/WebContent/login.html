@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<style>
+body {
+	background-color: #fde0e3;
+}
+
+form {
+	margin: 50px auto;
+	width: 300px;
+	padding: 20px;
+	background-color: #fff;
+	border-radius: 5px;
+	box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+input[type="text"], input[type="password"] {
+	width: 90%;
+	padding: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #f06292;
+	border-radius: 3px;
+}
+
+input[type="submit"], input[type="reset"] {
+	background-color: #f06292;
+	color: #fff;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+input[type="submit"]:hover, input[type="reset"]:hover {
+	background-color: #ec407a;
+}
+</style>
+<body>
+	<form name="frmlogin" action="result2.jsp" method="post" enctype="utf-8">
+		아이디 : <input type="text" name="user_id"><br> 
+		비밀번호 : <input type="password" name="user_pw"><br> 
+		<input type="submit" value="로그인">
+		<input type="reset" value="다시입력">
+	</form>
+
+
+</body>
+</html>
