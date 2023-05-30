@@ -38,7 +38,11 @@
 		}else if(op.equals("*")){
 			result = n1 * n2;
 		}else if(op.equals("/")){
-			result = n1 / n2;
+			if(n2 ==0){
+				errorMsg = "분모는 0이 될 수 없어!!";
+			}else{
+				result = n1 / n2;
+			}
 		}
 	}
 %>
