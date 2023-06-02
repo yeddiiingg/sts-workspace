@@ -161,7 +161,7 @@
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
 		
-      <Context docBase="chap15" path="/chap15" reloadable="true" source="org.eclipse.jst.jee.server:chap15"/><Context docBase="chap16" path="/chap16" reloadable="true" source="org.eclipse.jst.jee.server:chap16"/></Host>
+      <Context docBase="JDBC" path="/JDBC" reloadable="true" source="org.eclipse.jst.jee.server:JDBC"/><Context docBase="jeju" path="/jeju" reloadable="true" source="org.eclipse.jst.jee.server:jeju"/><Context docBase="chap12" path="/chap12" reloadable="true" source="org.eclipse.jst.jee.server:chap12"/></Host>
     </Engine>
   </Service>
 </Server>

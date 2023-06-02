@@ -17,7 +17,6 @@ public class MemberBean {
 		this.name = name;
 		this.pwd = pwd;
 
-
 	}
 
 	public Integer getNum_id() {

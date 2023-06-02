@@ -51,7 +51,7 @@ input[type="submit"] {
     <form method="post" action="member.jsp">
       <input type="text" name="name">
       <input type="submit" value="검색">
-      <input type="submit" value="전체보기" style="margin-right: 15px;"> <!-- Increased right margin -->
+      <input type="submit" value="전체보기" style="margin-right: 15px;">
     </form>
 </body>
 </html>

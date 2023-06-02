@@ -33,7 +33,6 @@ public class UserDAO {
 		}
 	}
 	
-	
 	public void join(String join_id, String join_pw1, String join_name) throws SQLException, NamingException {
 		Connection conn = null;
 		PreparedStatement pstmt = null;

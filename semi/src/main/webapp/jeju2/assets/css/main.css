@@ -1,12 +1,6 @@
 @import url(fontawesome-all.min.css);
 @import url("https://fonts.googleapis.com/css?family=Merriweather:300,700,300italic,700italic|Source+Sans+Pro:900");
 
-/*
-	Massively by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-*/
-
 * {
 	cursor: url(../../images/돌고래.png) 2 2, auto;
 }
@@ -58,12 +52,7 @@
 	left: 820px;
 	font-weight: bold;
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
-
 }
-
-
-
-
 
 @keyframes play-state {
 	50% {
@@ -3466,7 +3455,7 @@ table.alt tbody tr td {
 	width: 100%;
 	height: 100%;
 	background-color: skyblue;
-	background-image: url("../../images/overlay.png"), linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("../../images/제주일러스트입니다.png");
+	background-image: url("../../images/overlay.png"), linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("../images/제주일러스트입니다.png");
 	background-size: auto, auto, 100% auto;
 	background-position: center, center, top center;
 	background-repeat: repeat, no-repeat, no-repeat;
