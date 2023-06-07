@@ -4,46 +4,28 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
-
-import com.mysql.cj.xdevapi.PreparableStatement;
-
 public class MemberDAO {
-	private Connection con;
-	private PreparedStatement pstmt;
-	private DataSource dataFactory;
-	
-	
-	public MemberDAO() {
-		try {
-			Context ctx = new InitialContext();
-			dataFactory = (DataSource) ctx.lookup("java:comp/env/jdbc/mysql");
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	// id 중복체크
-	
-	public boolean IdCheck(String id) {
+
+	// id 중복 체크
+	public boolean IDcheck(String id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		boolean result = false;
 		
 		// DB연동 : my_db > t_member
 		try {
-			con = dataFactory.getConnection();
-			String query = "select decode(count(*),1,'true','false') as result from t_member";
-			query +="where id=?";
+			con = ConnectionPool.get(); 
+			//String query = "select decode(count(*),1,'true','false') as result from t_member";
+			//String query = "SELECT IF(COUNT(*) = 1, 'true','false') AS result FROM t_member";
+			String query = "SELECT CASE COUNT(*) WHEN 1 THEN 'true' ELSE 'false' END AS result FROM t_member";
+			query+=" where id=?";
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, id);
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			rs.next();
 			result = Boolean.parseBoolean(rs.getString("result"));
-			rs.close();
 			pstmt.close();
-			con.close();
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
