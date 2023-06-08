@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+	function exe() {
+		let _id = $("#uid").val();
+
+		$.ajax({
+			type : "post",
+			async : true,
+			url : "http://localhost:8090/chap16/idcheck",
+			dataType : "text",
+			data : {
+				id : _id
+			},
+			success : function(data, textStatus) {
+				alert(data);
+				if (data == "사용 불가") {
+					$("#msg").text("사용할수 없는 id");
+				} else {
+					$("#msg").text("사용 가능한 id");
+					$("#btn").prop("disabled", true);
+				}
+
+			},
+			error : function(data, textStatus) {
+				alert("에러발생!")
+			},
+			complete : function(data, textStatus) {
+				alert("작업 완료");
+			},
+		});
+	}
+</script>
+</head>
+<body>
+	<input type="text" id="uid" required="required" />
+	<input type="button" id="btn" value="중복체크" onclick="exe()" />
+
+	<div id="msg"></div>
+</body>
+</html>

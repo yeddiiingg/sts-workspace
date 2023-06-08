@@ -1,4 +1,4 @@
-package sec01.ex02;
+package sec03.ex01;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -38,12 +38,11 @@ public class MemberDAO {
 		return result;
 	}
 	
-	public List<MemberVO> listMembers(MemberVO memberVO) {
+	public ArrayList<MemberVO> listMembers() {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List<MemberVO> list = new ArrayList<MemberVO>();
-		String _name = memberVO.getName();
+		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
 		try {
 			con = ConnectionPool.get();
 			String query = "SELECT * FROM t_member ";	

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+<!-- 서버에 data 값들을 보내야하므로 필수적 -->
+	<form>
+		<label for ="food">좋아하는 음식</label>
+		<select id="food" onchange="exe()">
+			<option value="chicken">치킨</option>
+			<option value="pizza">피자</option>
+			<option value="tangsu">탕수육</option>
+			<option value="jokbal">족발</option>
+		</select>	
+	</form>
+	<div id="view">
+		<!-- 서버에서 받은 결과를 출력하는 공간 -->
+	</div>
+	<script type="text/javascript">
+	
+	/*
+		AJAX : Asynchronous Javascript and XML (비동기 통신)
+		서버에 요청을 할 때 XHR에게 위임하고, 
+		(XHR : 웹페이지를 새로고침하지 않고 데이터를 비동기적으로 로드할 수 있도록 해줌
+				XMLHttpRequest의 약자. Ajax에 애플리케이션에서 비동기적으로 서버와 상호작용
+				하기 위한 JavaScript 객체)
+		서버로부터 결과를 도착함수로 받아서 처리
+	*/
+	
+	// AJAX에서 서버와 비동기적으로 상호작용을 하기 위한 
+	// JavaScript 객체
+	// 웹페이지에서 서버로 데이터를 보내고 서버에서 데이터를 전달받는 것이 가능
+	var xhr = null; //XMLHttpRequest 의미
+	
+	function exe(){
+		if(window.ActiveXObject)
+			xhr = new ActiveXObject("Microsoft.XMLHTTP");
+		else
+			xhr = new XMLHttpRequest();
+		
+		// 서버로부터 결과가 도착해야 할 도착 함수 지정.
+		xhr.onreadystatechange = callBack;
+		var fd = document.getElementById("food").value;
+		
+		var param = "data="+encodeURIComponent(fd);
+		
+		// 요청정보에 대한 값 설정
+		// 요청방식 요청 서버 경로, 비동기
+		xhr.open("post","ex1_ajax.jsp",true);
+		
+		// http 프로토콜의 헤어값 설정(데이터의 유실을 막기 위해 필수적으로 작성])
+		xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+		
+		//서버에 요청 보냄
+		xhr.send(param);  //만약 요청방식이 get방시이라면 send(null);
+		
+	}
+	
+	function callBack(){ //응답 내용 도착 함수
+		// 현재 문서에서 id가 view인 요소를 찾아
+		// 서버로부터 받은 문자열의 값을 넣어줌.
+		document.getElementById("view").innerText = xhr.responseText;
+		
+	}
+	</script>
+</body>
+</html>
