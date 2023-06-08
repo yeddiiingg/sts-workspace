@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+function trans() {
+	$.ajax({
+		type:"post",
+		dataType: "xml", // 데이터 전달을 xml로 받겠다.
+		async: false,
+		url: "http://localhost:8090/chap16/ajax2",
+		success:function(data,textStatus){
+			$(data).find("pika").each(function(){
+			let n = $(this).find("name").text(); // this 전송된 xml파일에서 항목 찾음.
+			let w = $(this).find("weight").text();
+			let inf = $(this).find("info").text();
+			let image = $(this).find("img").text();
+			$("#poket").append(
+					"<h3>"+ n + "</h3>"
+					+"<h4>" +w+ "</h4>"
+					+"<h5>"+ inf + "</h5>"
+					+"<img src='"+image +"'/>"
+					);
+			});
+		},
+		error:function(data,textStatus){
+			alert("에러 발생");
+		},
+		complete:function(data,textStatus){
+			alert("작업 완료");
+		}
+	});
+}
+</script>
+
+
+</head>
+<body>
+	<input type="button" value="정보확인" onclick="trans()"/>
+	<div id="poket"></div>
+</body>
+</html>

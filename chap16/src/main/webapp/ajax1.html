@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+function trans() {
+	$.ajax({
+		type:"get",
+		dataType: "text",
+		async: false,
+		url: "http://localhost:8090/chap16/ajax1",
+		data: {param:"Hello Ajax!"},
+		success:function(data,textStatus){
+			$("#msg").append(data);
+		},
+		error:function(data,textStatus){
+			alert("에러 발생");
+		},
+		complete:function(data,textStatus){
+			alert("작업 완료");
+		}
+	});
+}
+</script>
+
+
+</head>
+<body>
+	<input type="button" value="서버전송" onclick="trans()"/>
+	<div id="msg"></div>
+</body>
+</html>

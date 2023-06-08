@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script type="text/javascript" src="js/httpRequest.js"></script>
+<style type="text/css">
+	div#view{
+		width: 200px;
+		height: 200px;
+		border: 1px solid black;
+		display: none;
+	}
+	.s1{
+		background-color: pink;
+		text-align: center;
+		line-height: 200px;
+		font-size: 20px;
+		font-weight: bold;
+		height: 100%;
+		color: white;
+	}
+	.s2{
+		background-color: skyblue;
+		text-align: center;
+		line-height: 200px;
+		font-size: 20px;
+		font-weight: bold;
+		height: 100%;
+		color: white;
+	}
+	.s3{
+		background-color: lime;
+		text-align: center;
+		line-height: 200px;
+		font-size: 20px;
+		font-weight: bold;
+		height: 100%;
+		color: white;
+	}
+	
+</style>
+</head>
+<body>
+	<form>
+	<!-- 선택이 바뀔때 마다 선택된 값을 exe함수로 보내서 호출 -->
+		<select id="sel" onchange="exe(this.value)">
+			<option> :: 선택 :: </option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+		</select>
+	</form>
+	<div id="view"></div>
+	
+	<script type="text/javascript">
+		function exe(val) {
+			alert(val);
+			// 서버로 전달할 파라미터 값 생성
+			var param = "v="+val; // url?v=2
+			sendRequest("ex2_ajax.jsp", param, m_method,"post",true);		
+		}
+		function m_method() {
+			// 서버로부터 결과가 도착하는 곳
+			// 정상적인 결과가 도착했을때만 수행하도록 처리
+			if(xhr.readyState == 4 && xhr.status == 200){
+				// 현재 문서에서 아이디가 view인 요소를 찾아서 서버에서 응답받은 결과를 넣어줌
+				document.getElementById("view").innerHTML = xhr.responseText;
+				document.getElementById("view").style.display = "block";
+			}
+		}
+		function closed() {
+			document.getElementById("view").style.display = "none";
+		}
+	</script>
+</body>
+</html>
