@@ -1,4 +1,4 @@
-package sec01.ex01;
+package sec03.board1;
 
 import java.sql.Connection;
 import java.sql.SQLException;

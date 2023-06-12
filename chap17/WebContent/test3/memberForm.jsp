@@ -1,43 +1,47 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8" isELIgnored="false"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var ="contextPath" value="${pageContext.request.contextPath }"/>
-<%
-request.setCharacterEncoding("utf-8");
-%>
-<!DOCTYPE html>
+
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+  
+<%     
+request.setCharacterEncoding("UTF-8");
+%> 
 <html>
 <head>
-<meta charset="utf-8">
-<title>М ▄Л⌡░ Й╟─Л·┘ Л╟╫</title>
+<meta charset="EUC-KR">
+<title>х╦©Ь ╟║ют ц╒</title>
 </head>
 <body>
-<form method="post" action="${contextPath }/member/addMember.do">
-<h1 style="text-align: center">М ▄Л⌡░ Й╟─Л·┘ Л╟╫</h1>
+<form method="post" action="${contextPath}/member/addMember.do">
+<h1 style="text-align: center"> х╦©Ь ╟║ют ц╒</h1>
 <table align="center">
 	<tr>
-		<td width="200" align="right"><p>Л∙└Л²╢К■■</p></td>
+		<td width="200"><p align="right">╬фюл╣П</p></td>
 		<td width="400"><input type="text" name="id"></td>
 	</tr>
 	<tr>
-		<td width="200" align="right"><p>К╧└К╟─К╡┬М≤╦</p></td>
+		<td width="200"><p align="right">╨Я╧п╧Ьхё</p></td>
 		<td width="400"><input type="password" name="pwd"></td>
 	</tr>
 	<tr>
-		<td width="200" align="right"><p>Л²╢К╕└</p></td>
+		<td width="200"><p align="right">юл╦╖</p></td>
 		<td width="400"><input type="text" name="name"></td>
 	</tr>
 	<tr>
-		<td width="200" align="right"><p>Л²╢К╘■Л²╪</p></td>
+		<td width="200"><p align="right">юл╦чюо</p></td>
 		<td width="400"><input type="text" name="email"></td>
 	</tr>
 	<tr>
-		<td width="200" align="right"><p>&nbsp;</p></td>
-		<td width="400"><input type="submit" value="Й╟─Л·┘М∙≤Й╦╟">
-		<input type="reset" value="К▀╓Л▀°Л·┘К═╔"></td>
+		<td width="200"><p>&nbsp;</p></td>
+		<td width="400">
+			<input type="submit" value="╟║ютго╠Б">
+			<input type="reset" value="╢ы╫ц ют╥б">
+		</td>
 	</tr>
 </table>
 
 </form>
+
 </body>
 </html>

@@ -1,4 +1,4 @@
-package sec03.board1;
+package sec03.board2;
 
 import java.sql.Timestamp;
 

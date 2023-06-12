@@ -1,8 +1,9 @@
 package sec01.ex01;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class MemberVO {
+	
 	private String id;
 	private String pwd;
 	private String name;
@@ -14,10 +15,10 @@ public class MemberVO {
 	}
 	
 	public MemberVO(String id, String pwd, String name, String email, Date joinDate) {
-		this.id=id;
+		this.id = id;
 		this.pwd = pwd;
 		this.name = name;
-		this.email=email;
+		this.email = email;
 		this.joinDate = joinDate;
 	}
 	
@@ -55,3 +56,4 @@ public class MemberVO {
 	
 	
 }
+
