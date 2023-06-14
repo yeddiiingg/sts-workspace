@@ -34,41 +34,46 @@ response.setContentType("text/html; charset=utf-8");
     obj.action="${contextPath}/board/listArticles.do";
     obj.submit();
   }
+  
+	function fn_enable(obj){
+		document.getElementById("i_title").disabled=false;
+		document.getElementById("i_content").disabled=false;
+		document.getElementById("i_imageFileName").disabled=false;
+		document.getElementById("tr_btn_modify").style.display="block";
+		document.getElementById("tr_btn").style.display="none";
+		
+	}
+	
+	function fn_modify(obj) {
+		// get방식..
+		obj.action="${contextPath}/board/modArticle.do?articleNO=${article.articleNO}";
+		obj.submit();
+	}
+	
+	function fn_remove(url,articleNO){
+		// post방식이라서..! fn_modify()처럼 안해!!
+		
+		// 폼 생성중..
+		var form = document.createElement("form");
+		form.setAttribute("method","post");
+		form.setAttribute("action",url);
+		
+		// articleNO 담을 input태그 생성
+		var articleNOInput = document.createElement("input");
+		articleNOInput.setAttribute("type","hidden");
+		articleNOInput.setAttribute("name","articleNO");
+		articleNOInput.setAttribute("value",articleNO);
+		
+		// 생성된 form에 생성한 input태그인 articleNOInput을 폼에 추가
+		form.appendChild(articleNOInput);
+		
+		// 완성된 form을 body태그에 추가
+		document.body.appendChild(form);
+		// -> 페이지를 만든거야.. 여기까지
+		form.submit();
+	}
 
 </script>
-
-<c:choose>
-	<c:when test="${not empty article.imageFileName && article.imageFileName!='null' }">
-		<script type="text/javascript">
-			function fn_enable(obj){
-				document.getElementById("i_title").disabled=false;
-				document.getElementById("i_content").disabled=false;
-				document.getElementById("i_imageFileName").disabled=false;
-				document.getElementById("tr_btn_modify").style.display="block";
-				document.getElementById("tr_btn").style.display="none";
-			}
-		</script>
-</c:when>
-<c:otherwise>
-	<script type="text/javascript">
-		function fn_enable(obj){
-			document.getElementById("i_title").disable=false;
-			document.getElementById("i_content").disable=false;
-
-			document.getElementById("tr_btn_modify").style.display="block";
-			document.getElementById("tr_btn").style.display="none";
-		}
-	</script>
-</c:otherwise>
-</c:choose>
-
-<script type="text/javascript">
-function fn_modify(obj) {
-	obj.action="${contextPath}/board/modArticle.do";
-	obj.submit();
-} 
-</script>
-
 
 <title>상세 글 보기</title>
 
@@ -81,6 +86,7 @@ function fn_modify(obj) {
 				<th> 글 번호 </th>
 				<th>
 					<input type="text" value="${article.articleNO}" disabled="disabled">
+					<input type="hidden" name="articleNO" value="${article.articleNO}"/>
 				</th>
 			</tr>
 			
@@ -108,6 +114,7 @@ function fn_modify(obj) {
 			<tr>
 				<th>이미지</th>
 				<td>
+				<input type="hidden" name="originalFileName" value="${article.imageFileName }"/>
 				<img id="preview" src="${contextPath}/download.do?imageFileName=${article.imageFileName}&articleNO=${article.articleNO }"/>
 				</td>
 			</tr>
@@ -128,7 +135,7 @@ function fn_modify(obj) {
 				<td></td>
 				<td colspan="2">
 					<input type="button" value="수정하기" onclick="fn_enable(this.form)"/>
-					<input type="button" value="삭제하기"/>
+					<input type="button" value="삭제하기" onclick="fn_remove('${contextPath}/board/removeArticle.do',${article.articleNO})"/>
 					<input type="button" value="목록보기" onclick="backToList(this.form)"/>
 					<input type="button" value="답글쓰기"/>
 				</td>

@@ -13,9 +13,6 @@ import java.util.List;
 
 import javax.naming.NamingException;
 
-import sec02.ex02.ConnectionPool;
-import sec02.ex02.MemberVO;
-
 public class boardDAO {
 	Connection conn = null;
 	PreparedStatement pstmt = null;
@@ -114,6 +111,47 @@ public class boardDAO {
 		return articleNO;
 	}
 	
+	public int updateArticle(ArticleVO article) throws NamingException, SQLException {
+//		int articleNO = getNewArticleNO();
+		int articleNO = 0;
+		try {
+			int parentNO = article.getParentNO();
+			
+			conn = ConnectionPool.get();
+			String title = article.getTitle();
+			String content = article.getContent();
+			String imageFileName = article.getImageFileName();
+			articleNO = article.getArticleNO();
+			
+			String query = "UPDATE t_board SET title=?, content=?";
+			if (imageFileName != null && imageFileName.length() !=0) {
+				query +=", imageFileName=?";
+			}
+			query += " WHERE articleNO=?";
+			System.out.println("here!"+articleNO);
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			if (imageFileName != null && imageFileName.length() != 0) {
+				pstmt.setString(3, imageFileName);
+				pstmt.setInt(4, articleNO);
+			} else {
+				pstmt.setInt(3, articleNO);
+			}
+			
+			System.out.println(query);
+			pstmt.executeUpdate();
+			
+		} finally {
+			if (pstmt!=null) pstmt.close();
+			if (conn!=null) conn.close();
+		}
+		return articleNO;
+	}
+	
+	
+	
+	
 	public ArticleVO selectArticle(int articleNO) throws NamingException, SQLException, UnsupportedEncodingException {
 		ArticleVO article = new ArticleVO();
 		try {
@@ -153,44 +191,21 @@ public class boardDAO {
 		return article;
 	}
 	
-
-	
-	public int updateArticle(ArticleVO article) throws NamingException, SQLException {
-		int articleNO = getNewArticleNO();
+	public void deleteArticle(int articleNO) throws NamingException, SQLException {
+		
 		try {
-			int parentNO = article.getParentNO();
-
 			conn = ConnectionPool.get();
-			String title = article.getTitle();
-			String content = article.getContent();
-			String imageFileName = article.getImageFileName();
-			
-			
-			String query = "UPDATE t_board SET title=?, content=?";
-			
-			if(imageFileName != null && imageFileName.length()!=0) {
-				query +=", imageFileName=?";
-				
-			}
-			query +=" WHERE articleNO =?";
-			
+			String query = "DELETE FROM t_board"
+					+ " WHERE articleNO = ?";
 			System.out.println(query);
-			
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, title);
-			pstmt.setString(2, content);
-
-			if(imageFileName != null && imageFileName.length()!=0) {
-				pstmt.setString(3, imageFileName);
-				pstmt.setInt(4, articleNO);
-			}else {
-				pstmt.setInt(3, articleNO);
-			}
+			pstmt.setInt(1, articleNO);
 			pstmt.executeUpdate();
+			
 		} finally {
 			if (pstmt!=null) pstmt.close();
 			if (conn!=null) conn.close();
 		}
-		return articleNO;
+		
 	}
 }

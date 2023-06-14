@@ -2,6 +2,7 @@ package sec03.board3;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -88,39 +89,59 @@ public class BoardController extends HttpServlet {
 					FileUtils.moveFileToDirectory(srcFile, destDir, true);
 				}
 				nextPage = "/board/listArticles.do";
-				
 			}else if(action.equals("/viewArticle.do")) {
 				// 상세 페이지 보이기
 				String articleNO = request.getParameter("articleNO");
 				articleVO = boardService.viewArticle(Integer.parseInt(articleNO));
 				request.setAttribute("article", articleVO);
-				System.out.println(articleVO);
 				nextPage = "/board3/viewArticle.jsp";
+			}else if (action.equals("/viewArticle.do")) {
+				String articleNO = request.getParameter("articleNO");
+				articleVO = boardService.viewArticle(Integer.parseInt(articleNO));
+				request.setAttribute("article", articleVO);
+				nextPage = "/board03/viewArticle.jsp";
 				
 			} else if (action.equals("/modArticle.do")) {
-				int articleNO = 0;
 				Map<String, String> articleMap = upload(request, response);
+				
+				System.out.println("modArticle "+articleMap.get("articleNO"));
+				
+				int articleNO = Integer.parseInt(articleMap.get("articleNO"));
 				String title = articleMap.get("title");
 				String content = articleMap.get("content");
 				String imageFileName = articleMap.get("imageFileName");
-
+				articleVO.setArticleNO(articleNO);
 				articleVO.setParentNO(0);
 				articleVO.setId("lee");
 				articleVO.setTitle(title);
 				articleVO.setContent(content);
 				articleVO.setImageFileName(imageFileName);
-				articleNO = boardService.modArticle(articleVO);
-				// 첨부한 파일이 있는 경우에 수행
-				if(imageFileName!=null && imageFileName.length()!=0) {
-					// temp 폴더에 임시로 업로드된 파일 객체 생성
-					File srcFile = new File(ARTICLE_IMAGE_REPO+"\\"+"temp"+"\\"+imageFileName);
-					// 글 번호 폴더 생성
-					File destDir = new File(ARTICLE_IMAGE_REPO+"\\"+articleNO);
-					destDir.mkdir(); 
-					// temp폴더의 파일을 글번호 폴더로 이동
+				boardService.modArticle(articleVO);
+				if (imageFileName != null && imageFileName.length() != 0) {
+					String originalFileName = articleMap.get("originalFileName");
+					File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + imageFileName);
+					File destDir = new File(ARTICLE_IMAGE_REPO + "\\" + articleNO);
+					destDir.mkdirs();
 					FileUtils.moveFileToDirectory(srcFile, destDir, true);
+					;
+					File oldFile = new File(ARTICLE_IMAGE_REPO + "\\" + articleNO + "\\" + originalFileName);
+					oldFile.delete();
+					System.out.println(originalFileName);
 				}
-				nextPage = "/board/listArticles.do";
+				PrintWriter pw = response.getWriter();
+				pw.print("<script>" + "  alert('수정확인');" + " location.href='" + request.getContextPath()
+		        + "/board/viewArticle.do?articleNO=" + articleNO + "';" + "</script>");
+				return;
+
+			}else if(action.equals("/removeArticle.do")) {
+				int articleNO = Integer.parseInt(request.getParameter("articleNO"));
+				boardService.removeArticle(articleNO);
+				
+				PrintWriter pw = response.getWriter();
+				pw.print("<script>" + "  alert('삭제 완료');" + " location.href='" + request.getContextPath()
+		        + "/board/listArticles.do';"+"</script>");
+				return;
+				
 			}
 			else {
 				nextPage = "/board3/listArticles.jsp";
@@ -160,15 +181,16 @@ public class BoardController extends HttpServlet {
 						if (idx == -1) {
 							idx = fileItem.getName().lastIndexOf("/"); // 리눅스 기반
 						}
-						
-						String fileName = fileItem.getName().substring(idx+1);
-						System.out.println("파일명: "+ fileName);
+
+						String fileName = fileItem.getName().substring(idx + 1);
+						System.out.println("파일명: " + fileName);
 						articleMap.put(fileItem.getFieldName(), fileName);
-						File uploadFile = new File(currentDirPath+"\\temp\\"+fileName);
+						File uploadFile = new File(currentDirPath + "\\temp\\" + fileName);
 						fileItem.write(uploadFile);
 					}
 				}
 			}
+			System.out.println("upload"+articleMap.get("articleNO"));
 
 		} catch (Exception e) {
 			e.printStackTrace();

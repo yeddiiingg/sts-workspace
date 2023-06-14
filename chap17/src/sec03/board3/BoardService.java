@@ -32,4 +32,8 @@ public class BoardService {
 	public int modArticle(ArticleVO article) throws NamingException, SQLException {
 		return boardDAO.updateArticle(article);
 	}
+	
+	public void removeArticle(int articleNO) throws NamingException, SQLException {
+		boardDAO.deleteArticle(articleNO);
+	}
 }
