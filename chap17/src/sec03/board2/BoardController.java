@@ -20,7 +20,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-@WebServlet("/board/*")
+//@WebServlet("/board/*")
 public class BoardController extends HttpServlet {
    
    
@@ -52,16 +52,11 @@ public class BoardController extends HttpServlet {
       try {
          List<ArticleVO> articlesList = new ArrayList<ArticleVO>();
          
-         if (action == null) {
+         if (action == null || action.equals("/listArticles.do")) {
             articlesList = boardService.listArticles();
             request.setAttribute("articlesList", articlesList);
             nextPage = "/board2/listArticles.jsp";
             
-         }else if(action.equals("/listArticles.do")) {
-            articlesList = boardService.listArticles();
-            request.setAttribute("articlesList", articlesList);
-            nextPage = "/board2/listArticles.jsp";
-         
          }else if(action.equals("/articleForm.do")) {
             // 글쓰기 창으로 이동
             nextPage = "/board2/articleForm.jsp";
@@ -70,6 +65,7 @@ public class BoardController extends HttpServlet {
             //DAO를 이용하여 DB에 글 저장(파일첨부도 해야됑 그럼 파일인지 아닌지 check!부터..)
         	 Map<String, String> articleMap = upload(request,response);
         	 // 업로드된 파일 및 폼 필드 데이터를 처리하여 articleMap에 저장
+        	 
         	 String title = articleMap.get("title");
         	 String content = articleMap.get("content");
         	 String imageFileName = articleMap.get("imageFileName");
@@ -102,26 +98,27 @@ public class BoardController extends HttpServlet {
 	   // articleMap은 업로드된 파일 및 폼 필드의 데이터를 저장하기 위한 해시맵
 	   String encoding = "utf-8";
 	   File currentDirPath = new File(ARTICLE_IMAGE_REPO);
-	   DiskFileItemFactory factory = new DiskFileItemFactory();
+	   DiskFileItemFactory factory = new DiskFileItemFactory(); //file-upload라는 jar파일 때문에 쓸 수 있는 것임
 	   factory.setRepository(currentDirPath);
-	   factory.setSizeThreshold(1024*1024);
-	   ServletFileUpload upload = new ServletFileUpload(factory);
-	   
+	   factory.setSizeThreshold(1024*1024); //크기 지정
+	   ServletFileUpload upload = new ServletFileUpload(factory); //서블릿에 파일 업로드 할 수 있는	   
 	   try {
+		   // request로 전달 된 form데이터 값을 분리하여 추출하는 작업
 		   List items = upload.parseRequest(request);
 		   for (int i=0; i <items.size(); i++) {
 			   FileItem fileItem = (FileItem) items.get(i);
-			   if(fileItem.isFormField()) {  //파일이 아니묜
+			   if(fileItem.isFormField()) {  //파일이 아니묜 (text,passward,select...)
 				   System.out.println(fileItem.getFieldName()+"="+fileItem.getString(encoding));
 				   articleMap.put(fileItem.getFieldName(),fileItem.getString(encoding)); //이름과 값 articleMap에 저장
+				   
 			   }else { // 파일이라면 파일 업로드 처리
 				   System.out.println("파일 이름 : "+fileItem.getFieldName());
 				   System.out.println("파일 크기 : "+fileItem.getSize());
 				   
 				   if (fileItem.getSize()>0) { //파일 크기가 0보다 큰 경우에만 처리..
-					   int idx = fileItem.getName().lastIndexOf("\\");
+					   int idx = fileItem.getName().lastIndexOf("\\");  //윈도우 기반
 					   if(idx == -1) {
-						   idx = fileItem.getName().lastIndexOf("/");
+						   idx = fileItem.getName().lastIndexOf("/"); //리눅스 기반
 					   }
 					   
 					   String fileName = fileItem.getName().substring(idx+1); //파일명 fileName 변수에 저장
